@@ -5,30 +5,69 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{4f72a905-dae7-4812-b6a6-27a080b3851e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Sub">
+      <UniqueIdentifier>{6f1b1597-47bf-4dd2-bc4f-7b25a5e4bdee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Simulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
     <ClCompile Include="EntitiesManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="E_Boss.cpp">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="E_Keldari.cpp">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="E.Player.cpp">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="E_SpiderA.cpp">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="E_SpiderB.cpp">
+      <Filter>Source Files\Entities\Sub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Entity.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Simulator.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
     <ClInclude Include="EntitiesManager.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E.Player.h">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="E_Boss.h">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="E_Keldari.h">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="E_SpiderA.h">
+      <Filter>Source Files\Entities\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="E_SpiderB.h">
+      <Filter>Source Files\Entities\Sub</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

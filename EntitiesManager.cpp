@@ -1,25 +1,10 @@
 ﻿#include "EntitiesManager.h"
+#include "Globals.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));
 
-#define LEVEL_PROGRESSION_1 1
-#define LEVEL_PROGRESSION_2 1.20
-#define LEVEL_PROGRESSION_3 1.70
-#define LEVEL_PROGRESSION_4 2.15
-#define LEVEL_PROGRESSION_5 2.6
 
-#define MCStartingAtt 20
-#define MCStartingArmor 20
-
-#define KStartingAtt 30
-#define KStartingArmor 10
-
-#define SpiderAAttack 20
-#define SpiderAArmor 20
-
-#define SpiderBAttack 25
-#define SpiderBArmor 10
 
 EntitiesManager::EntitiesManager()
 {}
@@ -261,26 +246,26 @@ void EntitiesManager::InitAll(int level)
 	spiderB->isAlive = true;
 }
 
-void EntitiesManager::PlayTurns(PlayerInventory* inventory)
+void EntitiesManager::PlayTurns()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		Entity* currentTurn = ReturnHighest(mainC, keldari, spiderA, spiderB, boss);
-		currentTurn->Update(mainC, keldari, spiderA, spiderB, boss, inventory);
+		Entity* currentTurn = ReturnHighest();
+		currentTurn->Update();
 	}
 }
 
-void EntitiesManager::PlayTurnsManual(PlayerInventory* inventory)
+void EntitiesManager::PlayTurnsManual()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		Entity* currentTurn = ReturnHighest(mainC, keldari, spiderA, spiderB, boss);
-		currentTurn->UpdateM(mainC, keldari, spiderA, spiderB, boss, inventory);
+		Entity* currentTurn = ReturnHighest();
+		currentTurn->UpdateM();
 		printf("\n ");
 		system("pause");
 		system("cls");
 		IncreaseSpeedAll();
-		DrawAll(mainC, keldari, spiderA, spiderB, boss);
+		DrawAll();
 	}
 }
 
@@ -302,13 +287,13 @@ void EntitiesManager::ResetEntitiesSpeed()
 	boss->ResetSpeed();
 }
 
-Entity* EntitiesManager::ReturnHighest(Entity* a, Entity* b, Entity* c, Entity* d, Entity* e)
+Entity* EntitiesManager::ReturnHighest()
 {
-	int as = a->speed;
-	int bs = b->speed;
-	int cs = c->speed;
-	int ds = d->speed;
-	int es = e->speed;
+	int as = mainC->speed;
+	int bs = keldari->speed;
+	int cs = spiderA->speed;
+	int ds = spiderB->speed;
+	int es = boss->speed;
 
 	int low1 = 0;
 	int low2 = 0;
@@ -319,7 +304,7 @@ Entity* EntitiesManager::ReturnHighest(Entity* a, Entity* b, Entity* c, Entity* 
 	int middle1 = 0;
 	int middle2 = 0;
 
-	if (a->speed < b->speed)
+	if (mainC->speed < keldari->speed)
 	{
 		low1 = as;
 		high1 = bs;
@@ -330,7 +315,7 @@ Entity* EntitiesManager::ReturnHighest(Entity* a, Entity* b, Entity* c, Entity* 
 		high1 = as;
 	}
 
-	if (c->speed < d->speed)
+	if (spiderA->speed < spiderB->speed)
 	{
 		low2 = cs;
 		high2 = ds;
@@ -369,33 +354,33 @@ Entity* EntitiesManager::ReturnHighest(Entity* a, Entity* b, Entity* c, Entity* 
 
 	if (highest == as)
 	{
-		return a;
+		return mainC;
 	}
 	else if (highest == bs)
 	{
-		return b;
+		return keldari;
 	}
 	else if (highest == cs)
 	{
-		return c;
+		return spiderA;
 	}
 	else if (highest == ds)
 	{
-		return d;
+		return spiderB;
 	}
 	else
 	{
-		return e;
+		return boss;
 	}
 }
 
-void EntitiesManager::DrawAll(Entity* a, Entity* b, Entity* c, Entity* d, Entity* e)
+void EntitiesManager::DrawAll()
 {
-	Entity as = *a;
-	Entity bs = *b;
-	Entity cs = *c;
-	Entity ds = *d;
-	Entity es = *e;
+	Entity as = *mainC;
+	Entity bs = *keldari;
+	Entity cs = *spiderA;
+	Entity ds = *spiderB;
+	Entity es = *boss;
 
 	Entity high2 = 0;
 	Entity high1 = 0;

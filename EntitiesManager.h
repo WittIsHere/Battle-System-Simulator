@@ -1,34 +1,38 @@
 #pragma once
 #include "Entity.h"
+#include "E.Player.h"
+#include "E_Keldari.h"
+#include "E_Boss.h"
+#include "E_SpiderA.h"
+#include "E_SpiderB.h"
+
 #include <vector>
 
-class Entity;
-class PlayerInventory;
 
 class EntitiesManager
 {
 public:
 	EntitiesManager();
-	~EntitiesManager() {};
+	~EntitiesManager() { delete this; };
 
 	void InitAll(int level);
-	void PlayTurns(PlayerInventory* inventory);
-	void PlayTurnsManual(PlayerInventory* inventory);
+	void PlayTurns();
+	void PlayTurnsManual();
 	void IncreaseSpeedAll();
 
-	Entity* ReturnHighest(Entity* a, Entity* b, Entity* c, Entity* d, Entity* e);
-	void DrawAll(Entity* a, Entity* b, Entity* c, Entity* d, Entity* e);
+	Entity* ReturnHighest();
+	void DrawAll();
 
 	void ResetEntitiesSpeed();
 
 public:
 
 	// All characters for the battle
-	Entity* mainC = new Entity("Player");
-	Entity* keldari = new Entity("Keldari");
-	Entity* spiderA = new Entity("Spider A");
-	Entity* spiderB = new Entity("Spider B");
-	Entity* boss = new Entity("Boss");
+	E_Player* mainC = new E_Player();
+	E_Keldari* keldari = new E_Keldari();
+	E_Boss* boss = new E_Boss();
+	E_SpiderA* spiderA = new E_SpiderA();
+	E_SpiderB* spiderB = new E_SpiderB();
 
 	int playerLevel = 0;
 };

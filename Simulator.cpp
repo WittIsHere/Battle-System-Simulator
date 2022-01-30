@@ -22,18 +22,18 @@ void Simulator::Init()
 void Simulator::PlayRound()
 {
 	entityManager->ResetEntitiesSpeed();
-	entityManager->PlayTurns(inventory);
+	entityManager->PlayTurns();
 }
 
 void Simulator::PlayRoundManual()
 {
 	if (noRepeat == 0)
 	{
-		entityManager->DrawAll(entityManager->mainC, entityManager->keldari, entityManager->spiderA, entityManager->spiderB, entityManager->boss);
+		entityManager->DrawAll();
 		noRepeat++;
 	}
 	entityManager->ResetEntitiesSpeed();
-	entityManager->PlayTurnsManual(inventory);
+	entityManager->PlayTurnsManual();
 }
 
 int Simulator::EndRoundCalculations()

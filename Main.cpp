@@ -4,12 +4,15 @@
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));
 #include <time.h>		// Required for function(s): srand(time(NULL));
 
+Simulator* simulator = new Simulator;
+
 int main()
 {
 	srand(time(NULL)); // Seed Init
 
+
 	// We create the simulator
-	Simulator* simulator = new Simulator;
+	
 	simulator->playerWins = 0;
 
 	// We start the program
@@ -81,6 +84,7 @@ int main()
 	}
 	system("cls");
 	printf("\n Closing Program\n ");
+	//delete simulator;
 	system("pause");
 	return 0;
 }
