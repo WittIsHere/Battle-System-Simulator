@@ -32,11 +32,11 @@ public:
 	Simulator* mySim = nullptr;
 
 	// All characters for the battle
-	E_Player* mainC = new E_Player("Player");
-	E_Keldari* keldari = new E_Keldari("Keldari");
-	E_Boss* boss = new E_Boss("Boss");
-	E_SpiderA* spiderA = new E_SpiderA("Spider A");
-	E_SpiderB* spiderB = new E_SpiderB("Spider B");
+	E_Player* mainC = new E_Player();
+	E_Keldari* keldari = new E_Keldari();
+	E_Boss* boss = new E_Boss();
+	E_SpiderA* spiderA = new E_SpiderA();
+	E_SpiderB* spiderB = new E_SpiderB();
 
 	int playerLevel = 0;
 };

@@ -83,66 +83,12 @@ void Entity::Draw(bool first)
 
 }
 
-void Entity::Update()
-{	
-	if (this->myType == TYPE::MC)
-	{
-		//printf("\n - It is mainC Turn");
-		//MainCTurn();
-	}
-	else if (this->myType == TYPE::KELDARI)
-	{
-		//printf("\n - It is Keldari Turn");
-		//KeldariTurn();
-	}
-	else if (this->myType == TYPE::BOSS)
-	{
-		//printf("\n - It is BOSS Turn");
-		//BossTurn();
-	}
-	else if (this->myType == TYPE::SPIDER_A)
-	{
-		//printf("\n - It is SPIDER A Turn");
-		//SpiderATurn();
-	}
-	else if (this->myType == TYPE::SPIDER_B)
-	{
-		//printf("\n - It is SPIDER B Turn");
-		//SpiderBTurn();
-	}
-
-	this->EndTurn();
+void Entity::Turn()
+{
 }
 
-void Entity::UpdateM()
+void Entity::TurnM()
 {
-	if (this->myType == TYPE::MC)
-	{
-		//printf("\n - It is mainC Turn");
-		//MainCTurnM(keldari, spiderA, spiderB, boss, inventory);
-	}
-	else if (this->myType == TYPE::KELDARI)
-	{
-		//printf("\n - It is Keldari Turn");
-		//KeldariTurnM(mainC, spiderA, spiderB, boss, inventory);
-	}
-	else if (this->myType == TYPE::BOSS)
-	{
-		//printf("\n - It is BOSS Turn");
-		//BossTurnM(mainC, keldari, spiderA, spiderB);
-	}
-	else if (this->myType == TYPE::SPIDER_A)
-	{
-		//printf("\n - It is SPIDER A Turn");
-		//SpiderATurnM(mainC, keldari);
-	}
-	else if (this->myType == TYPE::SPIDER_B)
-	{
-		//printf("\n - It is SPIDER B Turn");
-		//SpiderBTurnM(mainC, keldari);
-	}
-
-	this->EndTurn();
 }
 
 void Entity::operator=(const Entity& a)

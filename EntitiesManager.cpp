@@ -252,7 +252,8 @@ void EntitiesManager::PlayTurns()
 	for (int i = 0; i < 5; i++)
 	{
 		Entity* currentTurn = ReturnHighest();
-		currentTurn->Update();
+		currentTurn->Turn();
+		currentTurn->EndTurn();
 	}
 }
 
@@ -261,7 +262,8 @@ void EntitiesManager::PlayTurnsManual()
 	for (int i = 0; i < 5; i++)
 	{
 		Entity* currentTurn = ReturnHighest();
-		currentTurn->UpdateM();
+		currentTurn->TurnM();
+		currentTurn->EndTurn();
 		printf("\n ");
 		system("pause");
 		system("cls");

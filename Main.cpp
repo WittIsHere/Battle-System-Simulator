@@ -5,11 +5,9 @@
 #include <time.h>		// Required for function(s): srand(time(NULL));
 
 
-
 int main()
 {
 	srand(time(NULL)); // Seed Init
-
 
 	// We create the simulator
 	Simulator* simulator = new Simulator;

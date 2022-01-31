@@ -18,12 +18,12 @@ class Entity
 public:
 	Entity() {};
 	Entity(const char* n) : name(n) {}
-	~Entity() { delete this; } // ??
+	~Entity() {}
 
 	void Draw(bool first);
-	void Update();
 
-	void UpdateM();
+	virtual void Turn();
+	virtual void TurnM();
 
 	void EndTurn() { speed = 0; }
 	void ResetSpeed() { speed = baseSpeed; }
