@@ -161,4 +161,9 @@ void Entity::operator=(const Entity& a)
 	defending = a.defending;
 }
 
+void Entity::SetSimulator(Simulator* sim)
+{
+	mySim = sim;
+}
+
 

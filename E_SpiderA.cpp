@@ -1,31 +1,34 @@
 #include "E_SpiderA.h"
+#include "Simulator.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));
 
 void E_SpiderA::Turn()
 {
-	if (this->health <= 0)
+	EntitiesManager* manager = mySim->entityManager;
+	
+	if (health <= 0)
 	{
 		return;
 	}
-	if (this->onFire == true)
+	if (onFire == true)
 	{
-		this->health -= INFLAME_DMG;
+		health -= INFLAME_DMG;
 	}
-	if (this->health <= 0)
+	if (health <= 0)
 	{
 		return;
 	}
-	else if (this->stuned == true)
+	else if (stuned == true)
 	{
-		this->stuned = false;
+		stuned = false;
 		return;
 	}
 
 
 	int attackChoosen = rand() % 2 + 1; // range of 1 - 2
-	if (this->mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
+	if (mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
 	int target = rand() % 2 + 1; // range of 1 - 2 /// 0 - mainC 1 - KEldari
 	float dmgMitigation = 0;
 
@@ -34,18 +37,18 @@ void E_SpiderA::Turn()
 	int critGen = rand() % 100 + 1; // range of 1 - 100
 	bool critSuccess = false;
 
-	if (critGen <= this->critChance)
+	if (critGen <= critChance)
 	{
 		critSuccess = true;
 	}
 
 	int modifier = rand() % 10 + -5; // -5 - +5
 
-	if (simulator->entityManager->mainC->isAlive == false)
+	if (manager->mainC->isAlive == false)
 	{
 		target = 2;
 	}
-	else if (simulator->entityManager->keldari->isAlive == false)
+	else if (manager->keldari->isAlive == false)
 	{
 		target = 1;
 	}
@@ -57,83 +60,85 @@ void E_SpiderA::Turn()
 		{
 		case 1:
 			//printf("\n spider A attacks mainC");
-			totalDmg = this->attack + modifier;
+			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
 			}
-			totalDmg = totalDmg - (totalDmg * (simulator->entityManager->mainC->defense) / 100);
+			totalDmg = totalDmg - (totalDmg * (manager->mainC->defense) / 100);
 
-			if (simulator->entityManager->mainC->defending == true)
+			if (manager->mainC->defending == true)
 			{
-				simulator->entityManager->mainC->defending = false;
+				manager->mainC->defending = false;
 				totalDmg = 0;
 			}
 
-			simulator->entityManager->mainC->health -= totalDmg;
+			manager->mainC->health -= totalDmg;
 
 			break;
 		case 2:
 			//printf("\n spider A attacks keldari");
-			totalDmg = this->attack + modifier;
+			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
 			}
-			totalDmg = totalDmg - (totalDmg * (simulator->entityManager->keldari->defense) / 100);
-			if (simulator->entityManager->keldari->defending == true)
+			totalDmg = totalDmg - (totalDmg * (manager->keldari->defense) / 100);
+			if (manager->keldari->defending == true)
 			{
-				simulator->entityManager->keldari->defending = false;
+				manager->keldari->defending = false;
 				totalDmg = 0;
 			}
-			simulator->entityManager->keldari->health -= totalDmg;
+			manager->keldari->health -= totalDmg;
 			break;
 		}
 		break;
 	case 2:
 		//printf("\n spider A uses Double Lunge");
-		this->mana -= DOUBLE_LUNGE_MANA;
+		mana -= DOUBLE_LUNGE_MANA;
 
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
-		dmgMitigation = (totalDmg * (simulator->entityManager->mainC->defense / 100));
+		dmgMitigation = (totalDmg * (manager->mainC->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
-		simulator->entityManager->mainC->health -= totalDmg;
+		manager->mainC->health -= totalDmg;
 
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
-		dmgMitigation = (totalDmg * (simulator->entityManager->keldari->defense / 100));
+		dmgMitigation = (totalDmg * (manager->keldari->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
-		simulator->entityManager->keldari->health -= totalDmg;
+		manager->keldari->health -= totalDmg;
 		break;
 	}
 }
 
 void E_SpiderA::TurnM()
 {
-	if (this->health <= 0)
+	EntitiesManager* manager = mySim->entityManager;
+
+	if (health <= 0)
 	{
 		printf("\n Spider A is dead!");
-		this->onFire = false;
+		onFire = false;
 		return;
 	}
-	if (this->onFire)
+	if (onFire)
 	{
 		printf("\n Spider A is on fire, taking %d damage", INFLAME_DMG);
-		this->health -= INFLAME_DMG;
+		health -= INFLAME_DMG;
 	}
-	if (this->health <= 0)
+	if (health <= 0)
 	{
 		printf("\n Spider A died to Inflame damage!");
 		return;
 	}
-	if (this->stuned)
+	if (stuned)
 	{
 		printf("\n Spider A is stuned, skipping turn");
-		this->stuned = false;
+		stuned = false;
 		return;
 	}
 
 	int attackChoosen = rand() % 2 + 1; // range of 1 - 2
-	if (this->mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
+	if (mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
 	int target = rand() % 2 + 1; // range of 1 - 2 /// 0 - mainC 1 - KEldari
 	float dmgMitigation = 0;
 
@@ -142,18 +147,18 @@ void E_SpiderA::TurnM()
 	int critGen = rand() % 100 + 1; // range of 1 - 100
 	bool critSuccess = false;
 
-	if (critGen <= this->critChance)
+	if (critGen <= critChance)
 	{
 		critSuccess = true;
 	}
 
 	int modifier = rand() % 10 + -5; // -5 - +5
 
-	if (simulator->entityManager->mainC->isAlive == false)
+	if (manager->mainC->isAlive == false)
 	{
 		target = 2;
 	}
-	else if (simulator->entityManager->keldari->isAlive == false)
+	else if (manager->keldari->isAlive == false)
 	{
 		target = 1;
 	}
@@ -165,57 +170,57 @@ void E_SpiderA::TurnM()
 		{
 		case 1:
 			printf("\n Spider A attacks main character");
-			totalDmg = this->attack + modifier;
+			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
 				printf("\n Critical Strike!!");
 			}
-			totalDmg = totalDmg - (totalDmg * (simulator->entityManager->mainC->defense) / 100);
+			totalDmg = totalDmg - (totalDmg * (manager->mainC->defense) / 100);
 
-			if (simulator->entityManager->mainC->defending == true)
+			if (manager->mainC->defending == true)
 			{
-				simulator->entityManager->mainC->defending = false;
+				manager->mainC->defending = false;
 				totalDmg = 0;
 				printf("\n Main Character blocks the attack");
 			}
 
-			simulator->entityManager->mainC->health -= totalDmg;
+			manager->mainC->health -= totalDmg;
 			printf("\n Dealing a total of %d damage", totalDmg);
 			break;
 		case 2:
 			printf("\n Spider A attacks Keldari");
-			totalDmg = this->attack + modifier;
+			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
 				printf("\n Critical Strike!!");
 			}
-			totalDmg = totalDmg - (totalDmg * (simulator->entityManager->keldari->defense) / 100);
-			if (simulator->entityManager->keldari->defending == true)
+			totalDmg = totalDmg - (totalDmg * (manager->keldari->defense) / 100);
+			if (manager->keldari->defending == true)
 			{
-				simulator->entityManager->keldari->defending = false;
+				manager->keldari->defending = false;
 				totalDmg = 0;
 				printf("\n Keldari Blocks the attack");
 			}
-			simulator->entityManager->keldari->health -= totalDmg;
+			manager->keldari->health -= totalDmg;
 			printf("\n Dealing a total of %d damage", totalDmg);
 			break;
 		}
 		break;
 	case 2:
 		printf("\n spider A uses Double Lunge");
-		this->mana -= DOUBLE_LUNGE_MANA;
+		mana -= DOUBLE_LUNGE_MANA;
 
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
-		dmgMitigation = (totalDmg * (simulator->entityManager->mainC->defense / 100));
+		dmgMitigation = (totalDmg * (manager->mainC->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
-		simulator->entityManager->mainC->health -= totalDmg;
+		manager->mainC->health -= totalDmg;
 		printf("\n Deals %d to Main Character", totalDmg);
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
-		dmgMitigation = (totalDmg * (simulator->entityManager->keldari->defense / 100));
+		dmgMitigation = (totalDmg * (manager->keldari->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
-		simulator->entityManager->keldari->health -= totalDmg;
+		manager->keldari->health -= totalDmg;
 		printf(" and %d to Keldari", totalDmg);
 		break;
 	}

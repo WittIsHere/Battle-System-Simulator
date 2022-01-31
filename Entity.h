@@ -30,7 +30,10 @@ public:
 
 	void operator=(const Entity& a);
 
-	public:
+	void SetSimulator(Simulator* sim);
+
+	Simulator* mySim = nullptr;
+public:
 
 	const char* name = nullptr;
 	int level = 1;
@@ -54,4 +57,5 @@ public:
 	bool empowered = false;
 	bool defending = false;
 
+	
 };

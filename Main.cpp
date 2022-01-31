@@ -4,7 +4,7 @@
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));
 #include <time.h>		// Required for function(s): srand(time(NULL));
 
-Simulator* simulator = new Simulator;
+
 
 int main()
 {
@@ -12,7 +12,15 @@ int main()
 
 
 	// We create the simulator
-	
+	Simulator* simulator = new Simulator;
+
+	simulator->entityManager->SetSimulator(simulator);
+
+	simulator->entityManager->mainC->SetSimulator(simulator);
+	simulator->entityManager->keldari->SetSimulator(simulator);
+	simulator->entityManager->boss->SetSimulator(simulator);
+	simulator->entityManager->spiderA->SetSimulator(simulator);
+	simulator->entityManager->spiderB->SetSimulator(simulator);
 
 	simulator->playerWins = 0;
 

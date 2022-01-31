@@ -5,7 +5,9 @@
 #include "E_Boss.h"
 #include "E_SpiderA.h"
 #include "E_SpiderB.h"
+
 class Entity;
+
 class E_Player : public Entity
 {
 public:

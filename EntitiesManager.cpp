@@ -288,6 +288,11 @@ void EntitiesManager::ResetEntitiesSpeed()
 	boss->ResetSpeed();
 }
 
+void EntitiesManager::SetSimulator(Simulator* sim)
+{
+	mySim = sim;
+}
+
 Entity* EntitiesManager::ReturnHighest()
 {
 	int as = mainC->speed;
