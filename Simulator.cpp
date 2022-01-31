@@ -167,23 +167,30 @@ void Simulator::SecondScreen()
 	}
 }
 
-SimulationParameters Simulator::ConfigSimulation()
+void Simulator::ConfigSimulation()
 {
-	SimulationParameters customP;
-
 	printf("\n Choose the parameters:");
 
 	printf(" Introduce the level of the party members (1 - 5): ");
 	int startKey = ' ';
 	scanf_s(" %d", &startKey);
-	customP.playerLevel = startKey;
+	simParameters->playerLevel = startKey;
 
 	printf("\n Introduce the number of iterations you want: ");
 	int startKey2 = ' ';
 	scanf_s(" %d", &startKey2);
-	customP.nIterations = startKey2;
+	simParameters->nIterations = startKey2;
 
-	return customP;
+	printf("\n Do you want to enable player inventory? y/n: ");
+	char startKey3 = ' ';
+	scanf_s(" %c", &startKey3);
+	if (startKey3 == 'y' || startKey3 == 'Y') simParameters->useInventory = true;
+
+	printf("\n Do you want to show battles log? y/n: ");
+	char startKey4 = ' ';
+	scanf_s(" %c", &startKey4);
+	if (startKey4 == 'y' || startKey4 == 'Y') simParameters->showInfo = true;
+
 }
 
 void Simulator::TestConfiguration()
@@ -196,9 +203,9 @@ void Simulator::TestConfiguration()
 
 	int startKey = ' ';
 	scanf_s(" %d", &startKey);
-	if (startKey == 2) inventory->testAttackOnly = true;
-	else if (startKey == 3) inventory->testExploit = true;
-
+	if (startKey == 2) simParameters->testAttackOnly = true;
+	else if (startKey == 3) simParameters->testExploit = true;
+	system("cls");
 }
 
 int Simulator::BattlePresentation()
@@ -249,17 +256,22 @@ void Simulator::LostScreen()
 
 void Simulator::ResultsScreen()
 {
+	if (simParameters->showInfo)
+	{
+		printf("\n ");
+		system("pause");
+	}
 	system("cls");
 	printf("\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
 	printf("\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
 	printf("\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
 	printf("\n\n Results of the simulation:");
 
-	printf("\n\n Number of iterations: %d", simParameters.nIterations);
+	printf("\n\n Number of iterations: %d", simParameters->nIterations);
 	printf("\n Player wins: %d", playerWins);
 
 	float percentWins = playerWins*100;
-	percentWins = percentWins / simParameters.nIterations;
+	percentWins = percentWins / simParameters->nIterations;
 	printf("\n Player wins: %f", percentWins);
 	
 	printf("\n ");

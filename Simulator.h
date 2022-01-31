@@ -1,10 +1,21 @@
 #pragma once
 #include "EntitiesManager.h"
 
-struct SimulationParameters
+class SimulationParameters
 {
-	int playerLevel;
-	int nIterations;
+public:
+	void ResetParameters() { exploitInt = 0; }
+
+	int playerLevel = 0;
+	int nIterations = 0;
+
+
+	bool testAttackOnly = false;
+	bool testExploit = false;
+	int exploitInt = 0;
+
+	bool useInventory = false;
+	bool showInfo = false;
 };
 
 class PlayerInventory
@@ -12,15 +23,12 @@ class PlayerInventory
 public:
 	PlayerInventory() { hasManaPotion = true; hasHpPotion = true; hasPlant = true; }
 
-	void ResetInventory() { hasManaPotion = true; hasHpPotion = true; hasPlant = true; exploitInt = 0; }
+	void ResetInventory() { hasManaPotion = true; hasHpPotion = true; hasPlant = true; }
 
 	bool hasManaPotion = true;
 	bool hasHpPotion = true;
 	bool hasPlant = true;
 
-	bool testAttackOnly = false;
-	bool testExploit = false;
-	int exploitInt = 0;
 };
 
 class EntitiesManager;
@@ -43,7 +51,7 @@ public:
 	// Screens
 	void TitleScreen();
 	void SecondScreen();
-	SimulationParameters ConfigSimulation();
+	void ConfigSimulation();
 	void TestConfiguration();
 	int BattlePresentation();
 	void VictoryScreen();
@@ -52,7 +60,7 @@ public:
 
 public:
 	EntitiesManager* entityManager = new EntitiesManager;
-	SimulationParameters simParameters = {};
+	SimulationParameters* simParameters = new SimulationParameters;
 	PlayerInventory* inventory = new PlayerInventory;
 
 	bool playing = 0;

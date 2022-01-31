@@ -7,13 +7,18 @@
 void E_Boss::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	SimulationParameters* parameters = mySim->simParameters;
+
+	if (parameters->showInfo) printf("\n - Boss Turn");
 
 	if (health <= 0)
 	{
+		if (parameters->showInfo) printf("\n Boss is Dead!");
 		return;
 	}
 	if (onFire)
 	{
+		if (parameters->showInfo) printf("\n Boss takes %d INFLAME DAMAGE", INFLAME_DMG);
 		health -= INFLAME_DMG;
 	}
 	if (health <= 0)
@@ -22,6 +27,7 @@ void E_Boss::Turn()
 	}
 	if (stuned)
 	{
+		if (parameters->showInfo) printf("\n Boss is stuned!");
 		stuned = false;
 		return;
 	}
@@ -45,14 +51,14 @@ void E_Boss::Turn()
 
 	if ((forceHeal == true) && (mana >= MATRIARCH_BREATH_MANA))
 	{
-		//printf("\n BOSS heals");
+		if (parameters->showInfo) printf("\n Boss heals %d to its allies", MATRIARCH_BREATH_RECOVER);
 		mana -= MATRIARCH_BREATH_MANA;
 		manager->spiderA->health += MATRIARCH_BREATH_RECOVER;
 		manager->spiderB->health += MATRIARCH_BREATH_RECOVER;
 	}
 	else
 	{
-		//printf("\n BOSS attacks ");
+		if (parameters->showInfo) printf("\n Boss attacks ");
 		if (manager->mainC->isAlive && manager->keldari->isAlive)
 		{
 			target = rand() % 2;
@@ -77,15 +83,17 @@ void E_Boss::Turn()
 		switch (target)
 		{
 		case 0:
-			//printf("mainC");
+			if (parameters->showInfo) printf("main character");
 			dmgMitigation = finalDamage * (manager->mainC->defense / 100);
 			finalDamage = finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing a total of %f damage", finalDamage);
 			manager->mainC->health -= finalDamage;
 			break;
 		case 1:
-			//printf("keldari");
+			if (parameters->showInfo) printf("Keldari");
 			dmgMitigation = finalDamage * (manager->keldari->defense / 100);
 			finalDamage = finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing a total of %f damage", finalDamage);
 			manager->keldari->health -= finalDamage;
 			break;
 		}

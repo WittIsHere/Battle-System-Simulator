@@ -8,9 +8,13 @@ void E_Player::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
-	
+	SimulationParameters* parameters = mySim->simParameters;
+
+	if (parameters->showInfo) printf("\n - Main Character Turn");
+
 	if (health <= 0)
 	{
+		if (parameters->showInfo) printf("\n Main character is Dead!");
 		return;
 	}
 
@@ -83,13 +87,13 @@ void E_Player::Turn()
 			action = action * 2;
 		}
 	}
-	if (inventory->testExploit) action = 2;
-	if (inventory->testAttackOnly) action = 0;
+	if (parameters->testExploit) action = 2;
+	if (parameters->testAttackOnly) action = 0;
 	switch (action) // 0 - Attack, 1 - Special, 2 - Defend, 3 - Item
 	{
 	case 0:                                                                                       // --Attack--
 		// We need to check which enemies are alive to determine the target
-		//printf("\n MainC attacks ");
+		if (parameters->showInfo) printf("\n Main character attacks ");
 		if (manager->spiderA->isAlive == true && manager->spiderB->isAlive == true)
 		{
 			if (manager->boss->isAlive) allAlive = true;
@@ -147,28 +151,31 @@ void E_Player::Turn()
 		switch (target)
 		{
 		case 0:
-			//printf("Boss");
+			if (parameters->showInfo) printf("Boss");
 			dmgMitigation = finalDamage * (manager->boss->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing a total of %f damage", finalDamage);
 			manager->boss->health -= finalDamage;
 			break;
 		case 1:
-			//printf("spider A");
+			if (parameters->showInfo) printf("Spider A");
 			dmgMitigation = finalDamage * (manager->spiderA->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing a total of %f damage", finalDamage);
 			manager->spiderA->health -= finalDamage;
 			break;
 		case 2:
-			//printf("spiderB");
+			if (parameters->showInfo) printf("Spider B");
 			dmgMitigation = finalDamage * (manager->spiderB->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing a total of %f damage", finalDamage);
 			manager->spiderB->health -= finalDamage;
 			break;
 		}
 		break;
 	case 1:                                                                         // -- Special --
 		mana -= SOUL_CHAIN_MANA;
-		//printf("\n MainC uses soul chain on ");
+		if (parameters->showInfo) printf("\n Main character uses SOUL CHAIN on ");
 		if (manager->spiderA->isAlive == true && manager->spiderB->isAlive == true)
 		{
 			if (manager->boss->isAlive) allAlive = true;
@@ -215,40 +222,40 @@ void E_Player::Turn()
 		switch (target)
 		{
 		case 0:
-			//printf("Boss");
+			if (parameters->showInfo) printf("Boss");
 			manager->boss->stuned = true;
 			break;
 		case 1:
-			//printf("spiderA");
+			if (parameters->showInfo) printf("Spider A");
 			manager->spiderA->stuned = true;
 			break;
 		case 2:
-			//printf("spiderB");
+			if (parameters->showInfo) printf("Spider B");
 			manager->spiderB->stuned = true;
 			break;
 		}
 		break;
 	case 2:                                                                          // --Defend--
-		//printf("\n mainC blocks");
+		if (parameters->showInfo) printf("\n Main character defends");
 		defending = true;
 		break;
 	case 3:                                                                          // --Item--
-		//printf("\n mainC uses item ");
+		if (parameters->showInfo) printf("\n Main character uses ");
 		if (mana <= 30 && inventory->hasManaPotion == true)
 		{
-			//printf("MP POT");
+			if (parameters->showInfo) printf("MP potion");
 			mana += MP_POT_RECOVER;
 			inventory->hasManaPotion = false;
 		}
 		else if (health <= 40 && inventory->hasHpPotion == true)
 		{
-			//printf("HP POT");
+			if (parameters->showInfo) printf("HP potion");
 			health += HP_POT_RECOVER;
 			inventory->hasHpPotion = false;
 		}
 		else if (inventory->hasPlant == true)
 		{
-			//printf("Plant");
+			if (parameters->showInfo) printf("Exotic Plant");
 			empowered = true;
 			inventory->hasPlant = false;
 		}

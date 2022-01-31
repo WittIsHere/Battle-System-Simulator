@@ -34,9 +34,9 @@ int main()
 	}
 	else
 	{
-		simulator->simParameters = simulator->ConfigSimulation();
+		simulator->ConfigSimulation();
 		simulator->TestConfiguration();
-		simulator->entityManager->InitAll(simulator->simParameters.playerLevel);
+		simulator->entityManager->InitAll(simulator->simParameters->playerLevel);
 	}
 
 	// testing puroposes
@@ -64,8 +64,9 @@ int main()
 	}
 	else
 	{
-		for (int i = 0; i < simulator->simParameters.nIterations; i++)
+		for (int i = 0; i < simulator->simParameters->nIterations; i++)
 		{
+			if (simulator->simParameters->showInfo) printf("\n __________");
 			int onLoop = -1;
 			while (onLoop == -1)
 			{
@@ -75,16 +76,17 @@ int main()
 				if (onLoop == 1)
 				{
 					simulator->playerWins++;
-					printf("\n Simulation [%d] WIN", i);
+					printf("\n Simulation [%d] WIN", i+1);
 				}
 				else if (onLoop == 0)
 				{
-					printf("\n Simulation [%d] LOSS", i);
+					printf("\n Simulation [%d] LOSS", i+1);
 				}
 			}
 			// We reset the entities for next loop
-			simulator->entityManager->InitAll(simulator->simParameters.playerLevel);
-			//simulator->inventory->ResetInventory();
+			simulator->entityManager->InitAll(simulator->simParameters->playerLevel);
+			simulator->simParameters->ResetParameters();
+			if(simulator->simParameters->useInventory) simulator->inventory->ResetInventory();
 		}
 
 		simulator->ResultsScreen();

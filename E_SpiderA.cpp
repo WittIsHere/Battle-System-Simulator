@@ -7,13 +7,18 @@
 void E_SpiderA::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	SimulationParameters* parameters = mySim->simParameters;
 	
+	if (parameters->showInfo) printf("\n - Spider A Turn");
+
 	if (health <= 0)
 	{
+		if (parameters->showInfo) printf("\n Spider A is Dead!");
 		return;
 	}
 	if (onFire == true)
 	{
+		if (parameters->showInfo) printf("\n Spider A takes %d INFLAME DMG",INFLAME_DMG);
 		health -= INFLAME_DMG;
 	}
 	if (health <= 0)
@@ -22,6 +27,7 @@ void E_SpiderA::Turn()
 	}
 	else if (stuned == true)
 	{
+		if (parameters->showInfo) printf("\n Spider A is Stuned!");
 		stuned = false;
 		return;
 	}
@@ -59,7 +65,7 @@ void E_SpiderA::Turn()
 		switch (target)
 		{
 		case 1:
-			//printf("\n spider A attacks mainC");
+			if (parameters->showInfo) printf("\n Spider B attacks main character");
 			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
@@ -72,12 +78,12 @@ void E_SpiderA::Turn()
 				manager->mainC->defending = false;
 				totalDmg = 0;
 			}
-
+			if (parameters->showInfo) printf("\n Dealing %d damage", totalDmg);
 			manager->mainC->health -= totalDmg;
 
 			break;
 		case 2:
-			//printf("\n spider A attacks keldari");
+			if (parameters->showInfo) printf("\n Spder A attacks Keldari");
 			totalDmg = attack + modifier;
 			if (critSuccess == true)
 			{
@@ -89,22 +95,25 @@ void E_SpiderA::Turn()
 				manager->keldari->defending = false;
 				totalDmg = 0;
 			}
+			if (parameters->showInfo) printf("\n Dealing %d damage", totalDmg);
 			manager->keldari->health -= totalDmg;
 			break;
 		}
 		break;
 	case 2:
-		//printf("\n spider A uses Double Lunge");
+		if (parameters->showInfo) printf("\n Spider A uses DOUBLE LUNGE");
 		mana -= DOUBLE_LUNGE_MANA;
 
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->mainC->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
+		if (parameters->showInfo) printf("\n Dealing %d damage to main character", totalDmg);
 		manager->mainC->health -= totalDmg;
 
 		totalDmg = DOUBLE_LUNGE_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->keldari->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
+		if (parameters->showInfo) printf("\n Dealing %d damage to Keldari", totalDmg);
 		manager->keldari->health -= totalDmg;
 		break;
 	}

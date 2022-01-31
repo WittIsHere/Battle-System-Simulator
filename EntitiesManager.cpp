@@ -1,6 +1,6 @@
 ﻿#include "EntitiesManager.h"
 #include "Globals.h"
-#include "E_Keldari.h"
+#include "Simulator.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));
@@ -255,6 +255,7 @@ void EntitiesManager::PlayTurns()
 		currentTurn->Turn();
 		currentTurn->EndTurn();
 	}
+	if (mySim->simParameters->showInfo) printf("\n ___");
 }
 
 void EntitiesManager::PlayTurnsManual()

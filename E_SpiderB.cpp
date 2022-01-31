@@ -7,13 +7,17 @@
 void E_SpiderB::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	SimulationParameters* parameters = mySim->simParameters;
 
+	if (parameters->showInfo) printf("\n - Spider B Turn");
 	if (health <= 0)
 	{
+		if (parameters->showInfo) printf("\n Spider B is Dead!");
 		return;
 	}
 	if (onFire == true)
 	{
+		if (parameters->showInfo) printf("\n Spider B takes %d INFLAME DAMAGE", INFLAME_DMG);
 		health -= INFLAME_DMG;
 	}
 	if (health <= 0)
@@ -22,6 +26,7 @@ void E_SpiderB::Turn()
 	}
 	else if (stuned == true)
 	{
+		if (parameters->showInfo) printf("\n Spider B is Stuned!");
 		stuned = false;
 		return;
 	}
@@ -58,7 +63,7 @@ void E_SpiderB::Turn()
 		switch (target)
 		{
 		case 1:
-			//printf("\n spider B light attacks mainC");
+			if (parameters->showInfo) printf("\n Spider B light attacks main character");
 			totalDmg = attack + modifier;
 			totalDmg = totalDmg * 0.8;
 			if (critSuccess == true)
@@ -72,12 +77,12 @@ void E_SpiderB::Turn()
 				manager->mainC->defending = false;
 				totalDmg = 0;
 			}
-
+			if (parameters->showInfo) printf("\n Dealing %d damage", totalDmg);
 			manager->mainC->health -= totalDmg;
 
 			break;
 		case 2:
-			//printf("\n spider B light attacks keldari");
+			if (parameters->showInfo) printf("\n Spider B light attacks Keldari");
 
 			totalDmg = attack + modifier;
 			totalDmg = totalDmg * 0.9;
@@ -91,6 +96,7 @@ void E_SpiderB::Turn()
 				manager->keldari->defending = false;
 				totalDmg = 0;
 			}
+			if (parameters->showInfo) printf("\n Dealing %d damage",totalDmg);
 			manager->keldari->health -= totalDmg;
 			break;
 		}
@@ -99,7 +105,7 @@ void E_SpiderB::Turn()
 		switch (target)
 		{
 		case 1:
-			//printf("\n spider B heavy attacks mainC");
+			if (parameters->showInfo) printf("\n Spider B heavy attacks main character");
 			totalDmg = attack + modifier;
 			totalDmg = totalDmg * STRONG_ATTACK_MOD;
 			if (critSuccess == true)
@@ -112,11 +118,12 @@ void E_SpiderB::Turn()
 				manager->mainC->defending = false;
 				totalDmg = 0;
 			}
+			if (parameters->showInfo) printf("\n Dealing %d damage", totalDmg);
 			manager->mainC->health -= totalDmg;
 
 			break;
 		case 2:
-			//printf("\n spider B heavy attacks keldari");
+			if (parameters->showInfo) printf("\n Spider B heavy attacks keldari");
 			totalDmg = attack + modifier;
 			totalDmg = totalDmg * STRONG_ATTACK_MOD;
 			if (critSuccess == true)
@@ -129,6 +136,7 @@ void E_SpiderB::Turn()
 				manager->keldari->defending = false;
 				totalDmg = 0;
 			}
+			if (parameters->showInfo) printf("\n Dealing %d damage", totalDmg);
 			manager->keldari->health -= totalDmg;
 			break;
 		}

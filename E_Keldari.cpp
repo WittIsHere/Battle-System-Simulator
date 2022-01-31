@@ -8,9 +8,13 @@ void E_Keldari::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
+	SimulationParameters* parameters = mySim->simParameters;
+
+	if (parameters->showInfo) printf("\n - Keldari Turn");
 
 	if (health <= 0)
 	{
+		if (parameters->showInfo) printf("\n Keldari is Dead!");
 		return;
 	}
 
@@ -83,13 +87,13 @@ void E_Keldari::Turn()
 			action = action * 2;
 		}
 	}
-	if (inventory->testAttackOnly) action = 0;
-	if (inventory->testExploit)
+	if (parameters->testAttackOnly) action = 0;
+	if (parameters->testExploit)
 	{
-		if (inventory->exploitInt == 0)
+		if (parameters->exploitInt == 0)
 		{
 			action = 1;
-			inventory->exploitInt++;
+			parameters->exploitInt++;
 		}
 		else
 		{
@@ -101,7 +105,7 @@ void E_Keldari::Turn()
 	{
 	case 0:                                                                                       // --Attack--
 		// We need to check which enemies are alive to determine the target
-		//printf("\n Keldari attacks ");
+		if (parameters->showInfo) printf("\n Keldari attacks ");
 		if (manager->spiderA->isAlive == true && manager->spiderB->isAlive == true)
 		{
 			if (manager->boss->isAlive) allAlive = true;
@@ -159,53 +163,56 @@ void E_Keldari::Turn()
 		switch (target)
 		{
 		case 0:
-			//printf("boss");
+			if (parameters->showInfo) printf("Boss");
 			dmgMitigation = finalDamage * (manager->boss->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing %d damage", finalDamage);
 			manager->boss->health -= finalDamage;
 			break;
 		case 1:
-			//printf("spider A");
+			if (parameters->showInfo) printf("Spider A");
 			dmgMitigation = finalDamage * (manager->spiderA->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing %d damage", finalDamage);
 			manager->spiderA->health -= finalDamage;
 			break;
 		case 2:
-			//printf("spider B");
+			if (parameters->showInfo) printf("Spider B");
 			dmgMitigation = finalDamage * (manager->spiderB->defense / 100);
 			finalDamage -= dmgMitigation;
+			if (parameters->showInfo) printf("\n Dealing %d damage", finalDamage);
 			manager->spiderB->health -= finalDamage;
 			break;
 		}
 		break;
 	case 1:                                                                         // -- Special --
-		//printf("\n Keldari uses Inflame");
+		if (parameters->showInfo) printf("\n Keldari uses INFLAME");
 		mana -= INFLAME_MANA;
 		manager->boss->onFire = true;
 		manager->spiderA->onFire = true;
 		manager->spiderB->onFire = true;
 		break;
 	case 2:                                                                          // --Defend--
-		//printf("\n Keldari blocks");
+		if (parameters->showInfo) printf("\n Keldari defends");
 		defending = true;
 		break;
 	case 3:                                                                          // --Item--
-		//printf("\n Keldari uses item ");
+		if (parameters->showInfo) printf("\n Keldari uses ");
 		if (mana <= 30 && inventory->hasManaPotion == true)
 		{
-			//printf("MP pot");
+			if (parameters->showInfo) printf("MP potion");
 			mana += MP_POT_RECOVER;
 			inventory->hasManaPotion = false;
 		}
 		else if (health <= 40 && inventory->hasHpPotion == true)
 		{
-			//printf("HP pot");
+			if (parameters->showInfo) printf("HP potion");
 			health += HP_POT_RECOVER;
 			inventory->hasHpPotion = false;
 		}
 		else if (inventory->hasPlant == true)
 		{
-			//printf("Plant");
+			if (parameters->showInfo) printf("Exotic plant");
 			empowered = true;
 			inventory->hasPlant = false;
 		}
