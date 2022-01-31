@@ -21,86 +21,86 @@ void Simulator::Init()
 
 void Simulator::PlayRound()
 {
-	entityManager->ResetEntitiesSpeed();
-	entityManager->PlayTurns();
+	//entityManager->ResetEntitiesSpeed();
+	//entityManager->PlayTurns();
 }
 
 void Simulator::PlayRoundManual()
 {
-	if (noRepeat == 0)
+	/*if (noRepeat == 0)
 	{
 		entityManager->DrawAll();
 		noRepeat++;
 	}
 	entityManager->ResetEntitiesSpeed();
-	entityManager->PlayTurnsManual();
+	entityManager->PlayTurnsManual();*/
 }
 
 int Simulator::EndRoundCalculations()
 {
-	// Checking the entities to see if they are dead or alive
-	if (entityManager->mainC->health <= 0)
-	{
-		//printf("\n _mainC is dead");
-		entityManager->mainC->isAlive = false;
-	}
+	//// Checking the entities to see if they are dead or alive
+	//if (entityManager->mainC->health <= 0)
+	//{
+	//	//printf("\n _mainC is dead");
+	//	entityManager->mainC->isAlive = false;
+	//}
 
-	if (entityManager->keldari->health <= 0)
-	{
-		//printf("\n _keldari is dead");
-		entityManager->keldari->isAlive = false;
-	}
+	//if (entityManager->keldari->health <= 0)
+	//{
+	//	//printf("\n _keldari is dead");
+	//	entityManager->keldari->isAlive = false;
+	//}
 
-	if (entityManager->spiderA->health <= 0)
-	{
-		//printf("\n _spider A is dead");
-		entityManager->spiderA->isAlive = false;
-	}
+	//if (entityManager->spiderA->health <= 0)
+	//{
+	//	//printf("\n _spider A is dead");
+	//	entityManager->spiderA->isAlive = false;
+	//}
 
-	if (entityManager->spiderB->health <= 0)
-	{
-		//printf("\n _spider B is dead");
-		entityManager->spiderB->isAlive = false;
-	}
+	//if (entityManager->spiderB->health <= 0)
+	//{
+	//	//printf("\n _spider B is dead");
+	//	entityManager->spiderB->isAlive = false;
+	//}
 
-	if (entityManager->boss->health <= 0)
-	{
-		//printf("\n _boss is dead");
-		entityManager->boss->isAlive = false;
-	}
+	//if (entityManager->boss->health <= 0)
+	//{
+	//	//printf("\n _boss is dead");
+	//	entityManager->boss->isAlive = false;
+	//}
 
-	// Win or Loss Conditions
-	if (entityManager->spiderA->isAlive == false && entityManager->spiderB->isAlive == false)
-	{
-		if (entityManager->boss->isAlive == false)
-		{
-			//printf("\n ------------------------------------ YOU WON ----------");
-			return 1;
-		}
-	}
-	if (entityManager->mainC->isAlive == false && entityManager->keldari->isAlive == false)
-	{
-		//printf("\n ------------------------------- GAME OVER ----------");
-		return 0;
-	}
+	//// Win or Loss Conditions
+	//if (entityManager->spiderA->isAlive == false && entityManager->spiderB->isAlive == false)
+	//{
+	//	if (entityManager->boss->isAlive == false)
+	//	{
+	//		//printf("\n ------------------------------------ YOU WON ----------");
+	//		return 1;
+	//	}
+	//}
+	//if (entityManager->mainC->isAlive == false && entityManager->keldari->isAlive == false)
+	//{
+	//	//printf("\n ------------------------------- GAME OVER ----------");
+	//	return 0;
+	//}
 
-	// So entities don't have negative hp
-	if (entityManager->keldari->health <= 0)
-	{
-		entityManager->keldari->health = 0;
-	}
-	if (entityManager->spiderA->health <= 0)
-	{
-		entityManager->spiderA->health = 0;
-	}
-	if (entityManager->spiderB->health <= 0)
-	{
-		entityManager->spiderB->health = 0;
-	}
-	if (entityManager->boss->health <= 0)
-	{
-		entityManager->boss->health = 0;
-	}
+	//// So entities don't have negative hp
+	//if (entityManager->keldari->health <= 0)
+	//{
+	//	entityManager->keldari->health = 0;
+	//}
+	//if (entityManager->spiderA->health <= 0)
+	//{
+	//	entityManager->spiderA->health = 0;
+	//}
+	//if (entityManager->spiderB->health <= 0)
+	//{
+	//	entityManager->spiderB->health = 0;
+	//}
+	//if (entityManager->boss->health <= 0)
+	//{
+	//	entityManager->boss->health = 0;
+	//}
 
 	return -1;
 }

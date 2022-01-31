@@ -13,6 +13,7 @@ int main()
 
 	// We create the simulator
 	
+
 	simulator->playerWins = 0;
 
 	// We start the program
@@ -31,7 +32,7 @@ int main()
 		simulator->TestConfiguration();
 		simulator->entityManager->InitAll(simulator->simParameters.playerLevel);
 	}
-	
+
 	// testing puroposes
 	//simulator->simParameters.nIterations = 10000; // :D
 	//simulator->simParameters.playerLevel = 1;
@@ -88,4 +89,5 @@ int main()
 	system("pause");
 	return 0;
 }
+
 

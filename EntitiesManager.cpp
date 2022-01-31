@@ -1,5 +1,6 @@
 ﻿#include "EntitiesManager.h"
 #include "Globals.h"
+#include "E_Keldari.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));

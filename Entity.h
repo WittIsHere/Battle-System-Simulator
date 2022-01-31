@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.cpp"
 
 enum class TYPE
 {

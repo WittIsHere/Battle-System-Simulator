@@ -1,7 +1,9 @@
 #pragma once
 #include "Globals.h"
 #include "Entity.h"
+
 class Entity;
+
 class E_Boss : public Entity
 {
 public:
