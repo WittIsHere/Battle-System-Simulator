@@ -8,6 +8,7 @@ void E_Boss::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	SimulationParameters* parameters = mySim->simParameters;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (parameters->showInfo) printf("\n - Boss Turn");
 
@@ -18,8 +19,8 @@ void E_Boss::Turn()
 	}
 	if (onFire)
 	{
-		if (parameters->showInfo) printf("\n Boss takes %d INFLAME DAMAGE", INFLAME_DMG);
-		health -= INFLAME_DMG;
+		if (parameters->showInfo) printf("\n Boss takes %d INFLAME DAMAGE", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -49,12 +50,12 @@ void E_Boss::Turn()
 		forceHeal = true;
 	}
 
-	if ((forceHeal == true) && (mana >= MATRIARCH_BREATH_MANA))
+	if ((forceHeal == true) && (mana >= myModVars->matriarch_Breath_MANA))
 	{
-		if (parameters->showInfo) printf("\n Boss heals %d to its allies", MATRIARCH_BREATH_RECOVER);
-		mana -= MATRIARCH_BREATH_MANA;
-		manager->spiderA->health += MATRIARCH_BREATH_RECOVER;
-		manager->spiderB->health += MATRIARCH_BREATH_RECOVER;
+		if (parameters->showInfo) printf("\n Boss heals %d to its allies", myModVars->matriarch_Breath_HP);
+		mana -= myModVars->matriarch_Breath_MANA;
+		manager->spiderA->health += myModVars->matriarch_Breath_HP;
+		manager->spiderB->health += myModVars->matriarch_Breath_HP;
 	}
 	else
 	{
@@ -103,6 +104,7 @@ void E_Boss::Turn()
 void E_Boss::TurnM()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (health <= 0)
 	{
@@ -112,8 +114,8 @@ void E_Boss::TurnM()
 	}
 	if (onFire)
 	{
-		printf("\n Boss is on fire, taking %d damage", INFLAME_DMG);
-		health -= INFLAME_DMG;
+		printf("\n Boss is on fire, taking %d damage", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -144,12 +146,12 @@ void E_Boss::TurnM()
 		forceHeal = true;
 	}
 
-	if ((forceHeal == true) && (mana >= MATRIARCH_BREATH_MANA))
+	if ((forceHeal == true) && (mana >= myModVars->matriarch_Breath_MANA))
 	{
-		printf("\n BOSS heals %d to the minions...", MATRIARCH_BREATH_RECOVER);
-		mana -= MATRIARCH_BREATH_MANA;
-		manager->spiderA->health += MATRIARCH_BREATH_RECOVER;
-		manager->spiderB->health += MATRIARCH_BREATH_RECOVER;
+		printf("\n BOSS heals %d to the minions...", myModVars->matriarch_Breath_HP);
+		mana -= myModVars->matriarch_Breath_MANA;
+		manager->spiderA->health += myModVars->matriarch_Breath_HP;
+		manager->spiderB->health += myModVars->matriarch_Breath_HP;
 	}
 	else
 	{

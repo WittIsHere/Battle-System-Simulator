@@ -8,6 +8,7 @@ void E_SpiderB::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	SimulationParameters* parameters = mySim->simParameters;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (parameters->showInfo) printf("\n - Spider B Turn");
 	if (health <= 0)
@@ -17,8 +18,8 @@ void E_SpiderB::Turn()
 	}
 	if (onFire == true)
 	{
-		if (parameters->showInfo) printf("\n Spider B takes %d INFLAME DAMAGE", INFLAME_DMG);
-		health -= INFLAME_DMG;
+		if (parameters->showInfo) printf("\n Spider B takes %d INFLAME DAMAGE", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -107,7 +108,7 @@ void E_SpiderB::Turn()
 		case 1:
 			if (parameters->showInfo) printf("\n Spider B heavy attacks main character");
 			totalDmg = attack + modifier;
-			totalDmg = totalDmg * STRONG_ATTACK_MOD;
+			totalDmg = totalDmg * myModVars->heavy_Att_MOD;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
@@ -125,7 +126,7 @@ void E_SpiderB::Turn()
 		case 2:
 			if (parameters->showInfo) printf("\n Spider B heavy attacks keldari");
 			totalDmg = attack + modifier;
-			totalDmg = totalDmg * STRONG_ATTACK_MOD;
+			totalDmg = totalDmg * myModVars->heavy_Att_MOD;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
@@ -147,6 +148,7 @@ void E_SpiderB::Turn()
 void E_SpiderB::TurnM()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (health <= 0)
 	{
@@ -156,8 +158,8 @@ void E_SpiderB::TurnM()
 	}
 	if (onFire)
 	{
-		printf("\n Spider B is on fire, taking %d damage", INFLAME_DMG);
-		health -= INFLAME_DMG;
+		printf("\n Spider B is on fire, taking %d damage", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -250,7 +252,7 @@ void E_SpiderB::TurnM()
 		case 1:
 			printf("\n Spider B heavy attacks Main Character");
 			totalDmg = attack + modifier;
-			totalDmg = totalDmg * STRONG_ATTACK_MOD;
+			totalDmg = totalDmg * myModVars->heavy_Att_MOD;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;
@@ -270,7 +272,7 @@ void E_SpiderB::TurnM()
 		case 2:
 			printf("\n Spider B heavy attacks Keldari");
 			totalDmg = attack + modifier;
-			totalDmg = totalDmg * STRONG_ATTACK_MOD;
+			totalDmg = totalDmg * myModVars->heavy_Att_MOD;
 			if (critSuccess == true)
 			{
 				totalDmg = totalDmg * 1.5;

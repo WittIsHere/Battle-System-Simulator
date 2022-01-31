@@ -1,5 +1,4 @@
 ﻿#include "EntitiesManager.h"
-#include "Globals.h"
 #include "Simulator.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
@@ -12,186 +11,83 @@ EntitiesManager::EntitiesManager()
 
 void EntitiesManager::InitAll(int level)
 {
+	AllModVars* myModVars = mySim->modVars;
+
+	mainC->name = "Player";
+	mainC->baseHP = 100;
+	mainC->health = mainC->baseHP;
+	mainC->mana = 100;
+	mainC->magicType = 1;
+	mainC->critChance = 10;
+	mainC->baseSpeed = 50;
+	mainC->speed = mainC->baseSpeed;;
+	mainC->myType = TYPE::MC;
+	mainC->defending = false;
+	mainC->empowered = false;
+	mainC->onFire = false;
+	mainC->stuned = false;
+	mainC->isAlive = true;
+
+	keldari->name = "Keldari";
+	keldari->baseHP = 100;
+	keldari->health = keldari->baseHP;
+	keldari->mana = 100;
+	keldari->magicType = 1;
+	keldari->critChance = 10;
+	keldari->baseSpeed = 70;
+	keldari->speed = keldari->baseSpeed;
+	keldari->myType = TYPE::KELDARI;
+	keldari->empowered = false;
+	keldari->defending = false;
+	keldari->onFire = false;
+	keldari->stuned = false;
+	keldari->isAlive = true;
+
 	switch (level)
 	{
 		case 1:
-			mainC->name = "Player";
-			mainC->baseHP = 100;
-			mainC->health = mainC->baseHP;
-			mainC->mana = 100;
-			mainC->magicType = 1;
-			mainC->defense = MCStartingArmor * LEVEL_PROGRESSION_1;
-			mainC->attack = MCStartingAtt * LEVEL_PROGRESSION_1;
-			mainC->critChance = 10;
-			mainC->baseSpeed = 50;
-			mainC->speed = mainC->baseSpeed;;
-			mainC->myType = TYPE::MC;
-			mainC->defending = false;
-			mainC->empowered = false;
-			mainC->onFire = false;
-			mainC->stuned = false;
-			mainC->isAlive = true;
+			mainC->defense = myModVars->mC_Defense * myModVars->level_1_Progression;
+			mainC->attack = myModVars->mC_Attack * myModVars->level_1_Progression;
 
-			keldari->name = "Keldari";
-			keldari->baseHP = 100;
-			keldari->health = keldari->baseHP;
-			keldari->mana = 100;
-			keldari->magicType = 1;
-			keldari->defense = KStartingArmor * LEVEL_PROGRESSION_1;
-			keldari->attack = KStartingAtt * LEVEL_PROGRESSION_1;
-			keldari->critChance = 10;
-			keldari->baseSpeed = 70;
-			keldari->speed = 70;
-			keldari->myType = TYPE::KELDARI;
-			keldari->empowered = false;
-			keldari->defending = false;
-			keldari->onFire = false;
-			keldari->stuned = false;
-			keldari->isAlive = true;
+			keldari->defense = myModVars->keld_Defense * myModVars->level_1_Progression;
+			keldari->attack = myModVars->keld_Attack * myModVars->level_1_Progression;
+
 			break;
 
 		case 2:
-			mainC->name = "Player";
-			mainC->baseHP = 100;
-			mainC->health = mainC->baseHP;
-			mainC->mana = 100;
-			mainC->magicType = 1;
-			mainC->defense = MCStartingArmor * LEVEL_PROGRESSION_2;
-			mainC->attack = MCStartingAtt * LEVEL_PROGRESSION_2;
-			mainC->critChance = 10;
-			mainC->baseSpeed = 50;
-			mainC->speed = mainC->baseSpeed;;
-			mainC->myType = TYPE::MC;
-			mainC->defending = false;
-			mainC->empowered = false;
-			mainC->onFire = false;
-			mainC->stuned = false;
-			mainC->isAlive = true;
+			mainC->defense = myModVars->mC_Defense * myModVars->level_2_Progression;
+			mainC->attack = myModVars->mC_Attack * myModVars->level_2_Progression;
 
-			keldari->name = "Keldari";
-			keldari->baseHP = 100;
-			keldari->health = keldari->baseHP;
-			keldari->mana = 100;
-			keldari->magicType = 1;
-			keldari->defense = KStartingArmor * LEVEL_PROGRESSION_2;
-			keldari->attack = KStartingAtt * LEVEL_PROGRESSION_2;
-			keldari->critChance = 10;
-			keldari->baseSpeed = 70;
-			keldari->speed = keldari->baseSpeed;
-			keldari->myType = TYPE::KELDARI;
-			keldari->empowered = false;
-			keldari->defending = false;
-			keldari->onFire = false;
-			keldari->stuned = false;
-			keldari->isAlive = true;
+			keldari->defense = myModVars->keld_Defense * myModVars->level_2_Progression;
+			keldari->attack = myModVars->keld_Attack * myModVars->level_2_Progression;
+
 			break;
 		
 		case 3:
-			mainC->name = "Player";
-			mainC->baseHP = 100;
-			mainC->health = mainC->baseHP;
-			mainC->mana = 100;
-			mainC->magicType = 1;
-			mainC->defense = MCStartingArmor * LEVEL_PROGRESSION_3;
-			mainC->attack = MCStartingAtt * LEVEL_PROGRESSION_3;
-			mainC->critChance = 10;
-			mainC->baseSpeed = 50;
-			mainC->speed = mainC->baseSpeed;;
-			mainC->myType = TYPE::MC;
-			mainC->defending = false;
-			mainC->empowered = false;
-			mainC->onFire = false;
-			mainC->stuned = false;
-			mainC->isAlive = true;
+			mainC->defense = myModVars->mC_Defense * myModVars->level_3_Progression;
+			mainC->attack = myModVars->mC_Attack * myModVars->level_3_Progression;
 
-			keldari->name = "Keldari";
-			keldari->baseHP = 100;
-			keldari->health = keldari->baseHP;
-			keldari->mana = 100;
-			keldari->magicType = 1;
-			keldari->defense = KStartingArmor * LEVEL_PROGRESSION_3;
-			keldari->attack = KStartingAtt * LEVEL_PROGRESSION_3;
-			keldari->critChance = 10;
-			keldari->baseSpeed = 70;
-			keldari->speed = keldari->baseSpeed;
-			keldari->myType = TYPE::KELDARI;
-			keldari->empowered = false;
-			keldari->defending = false;
-			keldari->onFire = false;
-			keldari->stuned = false;
-			keldari->isAlive = true;
+			keldari->defense = myModVars->keld_Defense * myModVars->level_3_Progression;
+			keldari->attack = myModVars->keld_Attack * myModVars->level_3_Progression;
+
 			break;
 		
 		case 4:
-			mainC->name = "Player";
-			mainC->baseHP = 100;
-			mainC->health = mainC->baseHP;
-			mainC->mana = 100;
-			mainC->magicType = 1;
-			mainC->defense = MCStartingArmor * LEVEL_PROGRESSION_4;
-			mainC->attack = MCStartingAtt * LEVEL_PROGRESSION_4;
-			mainC->critChance = 10;
-			mainC->baseSpeed = 50;
-			mainC->speed = mainC->baseSpeed;;
-			mainC->myType = TYPE::MC;
-			mainC->defending = false;
-			mainC->empowered = false;
-			mainC->onFire = false;
-			mainC->stuned = false;
-			mainC->isAlive = true;
+			mainC->defense = myModVars->mC_Defense * myModVars->level_4_Progression;
+			mainC->attack = myModVars->mC_Attack * myModVars->level_4_Progression;
 
-			keldari->name = "Keldari";
-			keldari->baseHP = 100;
-			keldari->health = keldari->baseHP;
-			keldari->mana = 100;
-			keldari->magicType = 1;
-			keldari->defense = KStartingArmor * LEVEL_PROGRESSION_4;
-			keldari->attack = KStartingAtt * LEVEL_PROGRESSION_4;
-			keldari->critChance = 10;
-			keldari->baseSpeed = 70;
-			keldari->speed = keldari->baseSpeed;
-			keldari->myType = TYPE::KELDARI;
-			keldari->empowered = false;
-			keldari->defending = false;
-			keldari->onFire = false;
-			keldari->stuned = false;
-			keldari->isAlive = true;
+			keldari->defense = myModVars->keld_Defense * myModVars->level_4_Progression;
+			keldari->attack = myModVars->keld_Attack * myModVars->level_4_Progression;
+
 			break;
 
 		case 5:
-			mainC->name = "Player";
-			mainC->baseHP = 100;
-			mainC->health = mainC->baseHP;
-			mainC->mana = 100;
-			mainC->magicType = 1;
-			mainC->defense = MCStartingArmor * LEVEL_PROGRESSION_5;
-			mainC->attack = MCStartingAtt * LEVEL_PROGRESSION_5;
-			mainC->critChance = 10;
-			mainC->baseSpeed = 50;
-			mainC->speed = mainC->baseSpeed;;
-			mainC->myType = TYPE::MC;
-			mainC->defending = false;
-			mainC->empowered = false;
-			mainC->onFire = false;
-			mainC->stuned = false;
-			mainC->isAlive = true;
+			mainC->defense = myModVars->mC_Defense * myModVars->level_5_Progression;
+			mainC->attack = myModVars->mC_Attack * myModVars->level_5_Progression;
 
-			keldari->name = "Keldari";
-			keldari->baseHP = 100;
-			keldari->health = keldari->baseHP;
-			keldari->mana = 100;
-			keldari->magicType = 1;
-			keldari->defense = KStartingArmor * LEVEL_PROGRESSION_5;
-			keldari->attack = KStartingAtt * LEVEL_PROGRESSION_5;
-			keldari->critChance = 10;
-			keldari->baseSpeed = 70;
-			keldari->speed = keldari->baseSpeed;
-			keldari->myType = TYPE::KELDARI;
-			keldari->empowered = false;
-			keldari->defending = false;
-			keldari->onFire = false;
-			keldari->stuned = false;
-			keldari->isAlive = true;
+			keldari->defense = myModVars->keld_Defense * myModVars->level_5_Progression;
+			keldari->attack = myModVars->keld_Attack * myModVars->level_5_Progression;
+
 			break;	
 	}
 
@@ -217,8 +113,8 @@ void EntitiesManager::InitAll(int level)
 	spiderA->health = spiderA->baseHP;
 	spiderA->mana = 100;
 	spiderA->magicType = 1;
-	spiderA->defense = SpiderAArmor;
-	spiderA->attack = SpiderAAttack;
+	spiderA->defense = myModVars->sA_Defense;
+	spiderA->attack = myModVars->sA_Attack;
 	spiderA->critChance = 10;
 	spiderA->baseSpeed = 30;
 	spiderA->speed = spiderA->baseSpeed;
@@ -234,8 +130,8 @@ void EntitiesManager::InitAll(int level)
 	spiderB->health = spiderB->baseHP;
 	spiderB->mana = 100;
 	spiderB->magicType = 1;
-	spiderB->defense = SpiderBArmor;
-	spiderB->attack = SpiderBAttack;
+	spiderB->defense = myModVars->sB_Defense;
+	spiderB->attack = myModVars->sB_Attack;
 	spiderB->critChance = 20;
 	spiderB->baseSpeed = 90;
 	spiderB->speed = spiderB->baseSpeed;

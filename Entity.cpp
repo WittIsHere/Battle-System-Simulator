@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "Simulator.h"
-#include "Globals.h"
 
 #include <stdio.h>		// Required for function(s): printf(); scanf(); scanf_s(); 
 #include <stdlib.h>		// Required for function(s): rand(); system(); srand(); srand(time(NULL));

@@ -1,5 +1,6 @@
 #pragma once
 #include "EntitiesManager.h"
+#include "Modificable.h"
 
 class SimulationParameters
 {
@@ -32,6 +33,7 @@ public:
 };
 
 class EntitiesManager;
+class AllModVars;
 
 class Simulator
 {
@@ -62,6 +64,7 @@ public:
 	EntitiesManager* entityManager = new EntitiesManager;
 	SimulationParameters* simParameters = new SimulationParameters;
 	PlayerInventory* inventory = new PlayerInventory;
+	AllModVars* modVars = new AllModVars;
 
 	bool playing = 0;
 

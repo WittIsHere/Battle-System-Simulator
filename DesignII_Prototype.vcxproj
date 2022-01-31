@@ -146,7 +146,7 @@
     <ClInclude Include="E_Keldari.h" />
     <ClInclude Include="E_SpiderA.h" />
     <ClInclude Include="E_SpiderB.h" />
-    <ClInclude Include="Globals.h" />
+    <ClInclude Include="Modificable.h" />
     <ClInclude Include="Simulator.h" />
   </ItemGroup>
   <ItemGroup>

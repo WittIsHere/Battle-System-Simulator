@@ -51,9 +51,6 @@
     <ClInclude Include="EntitiesManager.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="E.Player.h">
       <Filter>Source Files\Entities\Sub</Filter>
     </ClInclude>
@@ -68,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="E_SpiderB.h">
       <Filter>Source Files\Entities\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="Modificable.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ void E_Keldari::Turn()
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
 	SimulationParameters* parameters = mySim->simParameters;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (parameters->showInfo) printf("\n - Keldari Turn");
 
@@ -34,7 +35,7 @@ void E_Keldari::Turn()
 
 	int safeAction = -1;
 
-	if (mana >= INFLAME_MANA)
+	if (mana >= myModVars->inflame_MANA)
 	{
 		hasMana = true;
 	}
@@ -158,7 +159,7 @@ void E_Keldari::Turn()
 
 		finalDamage = attack + modifier;
 		if (critSucces) finalDamage * 1.5;
-		if (empowered) finalDamage* EXOTIC_PLANT_BUFF;
+		if (empowered) finalDamage* myModVars->exotic_Plant_Buff;
 
 		switch (target)
 		{
@@ -187,7 +188,7 @@ void E_Keldari::Turn()
 		break;
 	case 1:                                                                         // -- Special --
 		if (parameters->showInfo) printf("\n Keldari uses INFLAME");
-		mana -= INFLAME_MANA;
+		mana -= myModVars->inflame_MANA;
 		manager->boss->onFire = true;
 		manager->spiderA->onFire = true;
 		manager->spiderB->onFire = true;
@@ -201,13 +202,13 @@ void E_Keldari::Turn()
 		if (mana <= 30 && inventory->hasManaPotion == true)
 		{
 			if (parameters->showInfo) printf("MP potion");
-			mana += MP_POT_RECOVER;
+			mana += myModVars->mP_potion;
 			inventory->hasManaPotion = false;
 		}
 		else if (health <= 40 && inventory->hasHpPotion == true)
 		{
 			if (parameters->showInfo) printf("HP potion");
-			health += HP_POT_RECOVER;
+			health += myModVars->hP_potion;
 			inventory->hasHpPotion = false;
 		}
 		else if (inventory->hasPlant == true)
@@ -224,6 +225,7 @@ void E_Keldari::TurnM()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (health <= 0)
 	{
@@ -270,7 +272,7 @@ void E_Keldari::TurnM()
 
 		finalDamage = attack + modifier;
 		if (critSucces) finalDamage * 1.5;
-		if (empowered) finalDamage* EXOTIC_PLANT_BUFF;
+		if (empowered) finalDamage* myModVars->exotic_Plant_Buff;
 
 		switch (target)
 		{
@@ -298,7 +300,7 @@ void E_Keldari::TurnM()
 		}
 		break;
 	case 2:                                                                         // -- Special --
-		mana -= INFLAME_DMG;
+		mana -= myModVars->inflame_MANA;
 		//printf("\n MainC uses soul chain on ");
 		printf("\n You decide to use Inflame, all enemies are burning now!");
 		manager->boss->onFire = true;
@@ -348,8 +350,8 @@ void E_Keldari::TurnM()
 			{
 
 				printf("\n Using Health Potion on self");
-				printf("\n %d Keldari HP restored", HP_POT_RECOVER);
-				health += HP_POT_RECOVER;
+				printf("\n %d Keldari HP restored", myModVars->hP_potion);
+				health += myModVars->hP_potion;
 				if (health >= 100)
 				{
 					health = 100;
@@ -363,8 +365,8 @@ void E_Keldari::TurnM()
 			if (inventory->hasManaPotion == true)
 			{
 				printf("\n Using Mana Potion on self");
-				printf("\n %d Keldari Mana restored", MP_POT_RECOVER);
-				mana += MP_POT_RECOVER;
+				printf("\n %d Keldari Mana restored", myModVars->mP_potion);
+				mana += myModVars->mP_potion;
 				if (mana >= 100)
 				{
 					mana = 100;

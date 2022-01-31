@@ -9,6 +9,7 @@ void E_Player::Turn()
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
 	SimulationParameters* parameters = mySim->simParameters;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (parameters->showInfo) printf("\n - Main Character Turn");
 
@@ -34,7 +35,7 @@ void E_Player::Turn()
 
 	int safeAction = -1;
 
-	if (mana >= SOUL_CHAIN_MANA)
+	if (mana >= myModVars->soul_Chain_MANA)
 	{
 		hasMana = true;
 	}
@@ -146,7 +147,7 @@ void E_Player::Turn()
 
 		finalDamage = attack + modifier;
 		if (critSucces) finalDamage * 1.5;
-		if (empowered) finalDamage* EXOTIC_PLANT_BUFF;
+		if (empowered) finalDamage* myModVars->exotic_Plant_Buff;
 
 		switch (target)
 		{
@@ -174,7 +175,7 @@ void E_Player::Turn()
 		}
 		break;
 	case 1:                                                                         // -- Special --
-		mana -= SOUL_CHAIN_MANA;
+		mana -= myModVars->soul_Chain_MANA;
 		if (parameters->showInfo) printf("\n Main character uses SOUL CHAIN on ");
 		if (manager->spiderA->isAlive == true && manager->spiderB->isAlive == true)
 		{
@@ -244,13 +245,13 @@ void E_Player::Turn()
 		if (mana <= 30 && inventory->hasManaPotion == true)
 		{
 			if (parameters->showInfo) printf("MP potion");
-			mana += MP_POT_RECOVER;
+			mana += myModVars->mP_potion;
 			inventory->hasManaPotion = false;
 		}
 		else if (health <= 40 && inventory->hasHpPotion == true)
 		{
 			if (parameters->showInfo) printf("HP potion");
-			health += HP_POT_RECOVER;
+			health += myModVars->hP_potion;
 			inventory->hasHpPotion = false;
 		}
 		else if (inventory->hasPlant == true)
@@ -267,6 +268,7 @@ void E_Player::TurnM()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	PlayerInventory* inventory = mySim->inventory;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (health <= 0)
 	{
@@ -313,7 +315,7 @@ void E_Player::TurnM()
 
 		finalDamage = this->attack + modifier;
 		if (critSucces) finalDamage * 1.5;
-		if (empowered) finalDamage* EXOTIC_PLANT_BUFF;
+		if (empowered) finalDamage* myModVars->exotic_Plant_Buff;
 
 		switch (target)
 		{
@@ -340,7 +342,7 @@ void E_Player::TurnM()
 		}
 		break;
 	case 2:                                                                         // -- Special --
-		mana -= SOUL_CHAIN_MANA;
+		mana -= myModVars->soul_Chain_MANA;
 		//printf("\n MainC uses soul chain on ");
 		printf("\n You decide to use Soul Chain!");
 		printf("\n 1 - Target Matriarch");
@@ -411,8 +413,8 @@ void E_Player::TurnM()
 			{
 
 				printf("\n Using Health Potion on self");
-				printf("\n %d Main Character HP restored", HP_POT_RECOVER);
-				health += HP_POT_RECOVER;
+				printf("\n %d Main Character HP restored", myModVars->hP_potion);
+				health += myModVars->hP_potion;
 				if (health >= 100)
 				{
 					health = 100;
@@ -426,8 +428,8 @@ void E_Player::TurnM()
 			if (inventory->hasManaPotion == true)
 			{
 				printf("\n Using Mana Potion on self");
-				printf("\n %d Main Character Mana restored", MP_POT_RECOVER);
-				mana += MP_POT_RECOVER;
+				printf("\n %d Main Character Mana restored", myModVars->mP_potion);
+				mana += myModVars->mP_potion;
 				if (mana >= 100)
 				{
 					mana = 100;

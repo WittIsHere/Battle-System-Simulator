@@ -8,6 +8,7 @@ void E_SpiderA::Turn()
 {
 	EntitiesManager* manager = mySim->entityManager;
 	SimulationParameters* parameters = mySim->simParameters;
+	AllModVars* myModVars = mySim->modVars;
 	
 	if (parameters->showInfo) printf("\n - Spider A Turn");
 
@@ -18,8 +19,8 @@ void E_SpiderA::Turn()
 	}
 	if (onFire == true)
 	{
-		if (parameters->showInfo) printf("\n Spider A takes %d INFLAME DMG",INFLAME_DMG);
-		health -= INFLAME_DMG;
+		if (parameters->showInfo) printf("\n Spider A takes %d INFLAME DMG", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -34,7 +35,7 @@ void E_SpiderA::Turn()
 
 
 	int attackChoosen = rand() % 2 + 1; // range of 1 - 2
-	if (mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
+	if (mana <= myModVars->double_Lunge_MANA) attackChoosen = 1;
 	int target = rand() % 2 + 1; // range of 1 - 2 /// 0 - mainC 1 - KEldari
 	float dmgMitigation = 0;
 
@@ -102,15 +103,15 @@ void E_SpiderA::Turn()
 		break;
 	case 2:
 		if (parameters->showInfo) printf("\n Spider A uses DOUBLE LUNGE");
-		mana -= DOUBLE_LUNGE_MANA;
+		mana -= myModVars->double_Lunge_MANA;
 
-		totalDmg = DOUBLE_LUNGE_DMG + modifier;
+		totalDmg = myModVars->double_Lunge_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->mainC->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
 		if (parameters->showInfo) printf("\n Dealing %d damage to main character", totalDmg);
 		manager->mainC->health -= totalDmg;
 
-		totalDmg = DOUBLE_LUNGE_DMG + modifier;
+		totalDmg = myModVars->double_Lunge_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->keldari->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
 		if (parameters->showInfo) printf("\n Dealing %d damage to Keldari", totalDmg);
@@ -122,6 +123,7 @@ void E_SpiderA::Turn()
 void E_SpiderA::TurnM()
 {
 	EntitiesManager* manager = mySim->entityManager;
+	AllModVars* myModVars = mySim->modVars;
 
 	if (health <= 0)
 	{
@@ -131,8 +133,8 @@ void E_SpiderA::TurnM()
 	}
 	if (onFire)
 	{
-		printf("\n Spider A is on fire, taking %d damage", INFLAME_DMG);
-		health -= INFLAME_DMG;
+		printf("\n Spider A is on fire, taking %d damage", myModVars->inflame_DMG);
+		health -= myModVars->inflame_DMG;
 	}
 	if (health <= 0)
 	{
@@ -147,7 +149,7 @@ void E_SpiderA::TurnM()
 	}
 
 	int attackChoosen = rand() % 2 + 1; // range of 1 - 2
-	if (mana <= DOUBLE_LUNGE_MANA) attackChoosen = 1;
+	if (mana <= myModVars->double_Lunge_MANA) attackChoosen = 1;
 	int target = rand() % 2 + 1; // range of 1 - 2 /// 0 - mainC 1 - KEldari
 	float dmgMitigation = 0;
 
@@ -219,14 +221,14 @@ void E_SpiderA::TurnM()
 		break;
 	case 2:
 		printf("\n spider A uses Double Lunge");
-		mana -= DOUBLE_LUNGE_MANA;
+		mana -= myModVars->double_Lunge_MANA;
 
-		totalDmg = DOUBLE_LUNGE_DMG + modifier;
+		totalDmg = myModVars->double_Lunge_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->mainC->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
 		manager->mainC->health -= totalDmg;
 		printf("\n Deals %d to Main Character", totalDmg);
-		totalDmg = DOUBLE_LUNGE_DMG + modifier;
+		totalDmg = myModVars->double_Lunge_DMG + modifier;
 		dmgMitigation = (totalDmg * (manager->keldari->defense / 100));
 		totalDmg = totalDmg - dmgMitigation;
 		manager->keldari->health -= totalDmg;
